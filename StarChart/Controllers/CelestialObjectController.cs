@@ -97,5 +97,25 @@ namespace StarChart.Controllers
                 return NoContent();
             }
         }
+
+
+        [HttpPatch("{id}/{name}")]
+        public IActionResult RenameObject(int id, string name)
+        {
+            CelestialObject selectedObject = _context.CelestialObjects.Find(id);
+            if(selectedObject == null)
+            {
+                return NotFound();
+            }
+            else
+            {
+                selectedObject.Name = name;
+
+                _context.Update(selectedObject);
+                _context.SaveChanges();
+
+                return NoContent();
+            }
+        }
     }
 }
